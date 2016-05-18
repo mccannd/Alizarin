@@ -8,30 +8,7 @@
 #include "BaseCharacter.generated.h"
 
 
-USTRUCT(BlueprintType)
-struct FResistanceStruct
-{
-	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		float physicalResist;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		float heatResist;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		float coldResist;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		float electricResist;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		float chemicalResist;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		float voidResist;
-
-};
 
 UCLASS(Blueprintable)
 class ALIZARIN_API ABaseCharacter : public ACharacter
