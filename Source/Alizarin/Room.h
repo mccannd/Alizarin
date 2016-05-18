@@ -20,6 +20,9 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
+	// These booleans inform us whether there is a doorway in the specified cardinal direction
+	// Each blueprint that derives from this class will have editable checkboxes, which must be filled properly
+	// In editor coordinates: West is positive X. North is positive Y.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Room")
 		bool north = false;
 

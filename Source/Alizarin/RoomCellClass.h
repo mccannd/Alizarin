@@ -4,17 +4,17 @@
 #include "Room.h"
 
 
-
+// enumeration for our generator:
+// BLOCKED means there is a wall here and we cant connect in this direction
+// OPEN means there isn't anything here and we have a chance to connect
+// REQUIRED means there is a doorway here which must be resolved with a connection
 enum DoorwayStatus { BLOCKED, OPEN, REQUIRED };
-/**
- * 
- */
 
 struct RoomCellStruct {
 
 	RoomCellStruct() {}
 
-	// for the generator to see where it can, must, and cannot connect
+	// All doorway boundaries are open on initialization
 	DoorwayStatus north = OPEN;
 	DoorwayStatus south = OPEN;
 	DoorwayStatus east = OPEN;
