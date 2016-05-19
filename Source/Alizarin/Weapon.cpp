@@ -36,3 +36,22 @@ void AWeapon::FireRelease(FVector origin, FVector direction)
 	// does nothing since this is basically an interface
 }
 
+bool AWeapon::CanFireNextShot()
+{
+	return GetWorld()->TimeSeconds >= nextShotTime;
+}
+
+FDamageStruct AWeapon::MakeDamage()
+{
+	FDamageStruct damage = FDamageStruct();
+	damage.criticalChance = critChance;
+	damage.criticalMultiplier = critMult;
+	damage.statusChance = status;
+	damage.physicalDamage = FMath::FRandRange(physicalMin, physicalMax);
+	damage.heatDamage = FMath::FRandRange(heatMin, heatMax);
+	damage.coldDamage = FMath::FRandRange(coldMin, coldMax);
+	damage.electricDamage = FMath::FRandRange(electricMin, electricMax);
+	damage.heatDamage = FMath::FRandRange(heatMin, heatMax);
+	damage.heatDamage = FMath::FRandRange(voidMin, voidMax);
+	return damage;
+}

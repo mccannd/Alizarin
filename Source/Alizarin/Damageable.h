@@ -14,27 +14,27 @@ struct FDamageStruct
 	GENERATED_USTRUCT_BODY()
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		int32 physicalDamage;
+		float physicalDamage;
 
 	// heat, inflicts burning status
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		int32 heatDamage;
+		float heatDamage;
 
 	// cold, inflicts stacking slow to a full freeze
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		int32 coldDamage;
+		float coldDamage;
 
 	// electric can spark to nearby enemies with an interrupting effect
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		int32 electricDamage;
+		float electricDamage;
 
 	// chemical can corrode armor and slightly increase damage taken
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		int32 chemicalDamage;
+		float chemicalDamage;
 
 	// spooky space magic, tentatively destabilizes / deals more damage to lower health enemies
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
-		int32 voidDamage;
+		float voidDamage;
 
 	// the chance that this damage will benefit from a critical bonus
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShowInfo)
