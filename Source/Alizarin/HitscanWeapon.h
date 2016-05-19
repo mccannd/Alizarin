@@ -19,5 +19,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 		virtual void FireHold(FVector origin, FVector direction) override;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Any)
+		bool singleTarget = true;
 };

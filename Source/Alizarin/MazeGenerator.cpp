@@ -119,18 +119,23 @@ void AMazeGenerator::GenerateCell(int32 x, int32 y) {
 	int num_doorways = FMath::RandRange(min, max);
 	if (num_doorways == 0) num_doorways++;
 
-	// for debugging
-	UE_LOG(LogTemp, Warning, TEXT("Blocked Directions: %s%s%s%s"),
-		adj_n == DoorwayStatus::BLOCKED ? TEXT("North ") : TEXT(""),
-		adj_e == DoorwayStatus::BLOCKED ? TEXT("East ") : TEXT(""), 
-		adj_s == DoorwayStatus::BLOCKED ? TEXT("South ") : TEXT(""), 
-		adj_w == DoorwayStatus::BLOCKED ? TEXT("West ") : TEXT(""));
-	UE_LOG(LogTemp, Warning, TEXT("Required Directions: %s%s%s%s"),
-		adj_n == DoorwayStatus::REQUIRED ? TEXT("North ") : TEXT(""),
-		adj_e == DoorwayStatus::REQUIRED ? TEXT("East ") : TEXT(""),
-		adj_s == DoorwayStatus::REQUIRED ? TEXT("South ") : TEXT(""),
-		adj_w == DoorwayStatus::REQUIRED ? TEXT("West") : TEXT(""));
-	UE_LOG(LogTemp, Warning, TEXT("Selected %d number of doorways"), num_doorways);
+	// make true to print all information to unreal editor and VS log
+	bool debuggerOn = false;
+
+	if (debuggerOn) {
+		UE_LOG(LogTemp, Warning, TEXT("Blocked Directions: %s%s%s%s"),
+			adj_n == DoorwayStatus::BLOCKED ? TEXT("North ") : TEXT(""),
+			adj_e == DoorwayStatus::BLOCKED ? TEXT("East ") : TEXT(""),
+			adj_s == DoorwayStatus::BLOCKED ? TEXT("South ") : TEXT(""),
+			adj_w == DoorwayStatus::BLOCKED ? TEXT("West ") : TEXT(""));
+		UE_LOG(LogTemp, Warning, TEXT("Required Directions: %s%s%s%s"),
+			adj_n == DoorwayStatus::REQUIRED ? TEXT("North ") : TEXT(""),
+			adj_e == DoorwayStatus::REQUIRED ? TEXT("East ") : TEXT(""),
+			adj_s == DoorwayStatus::REQUIRED ? TEXT("South ") : TEXT(""),
+			adj_w == DoorwayStatus::REQUIRED ? TEXT("West") : TEXT(""));
+		UE_LOG(LogTemp, Warning, TEXT("Selected %d number of doorways"), num_doorways);
+	}
+
 
 	// select a random room with this number of doorways
 	int num_room_of_type;
@@ -167,12 +172,15 @@ void AMazeGenerator::GenerateCell(int32 x, int32 y) {
 		w = room->west;
 		
 		for ( int rotations = 0; rotations < 4; rotations++) {
-			UE_LOG(LogTemp, Warning, TEXT("Trying rotation %d at %d, %d: %s%s%s%s"),
-				rotations, x, y, 
-				n ? TEXT("North ") : TEXT(""),
-				e ? TEXT("East ") : TEXT(""), 
-				s ? TEXT("South ") : TEXT(""), 
-				w ? TEXT("West ") : TEXT(""));
+			if (debuggerOn) {
+				UE_LOG(LogTemp, Warning, TEXT("Trying rotation %d at %d, %d: %s%s%s%s"),
+					rotations, x, y,
+					n ? TEXT("North ") : TEXT(""),
+					e ? TEXT("East ") : TEXT(""),
+					s ? TEXT("South ") : TEXT(""),
+					w ? TEXT("West ") : TEXT(""));
+			}
+			
 
 			if (roomFits(adj_n, adj_e, adj_s, adj_w, n, e, s, w)) {
 				success = true;
@@ -190,9 +198,9 @@ void AMazeGenerator::GenerateCell(int32 x, int32 y) {
 						ARoom* spawned_room = World->SpawnActor<ARoom>(room->GetActorClass(), transform);
 						currentCell.cell_room = spawned_room;
 					}
-					else { UE_LOG(LogTemp, Warning, TEXT("Room is nullptr")); }
+					else { if (debuggerOn) UE_LOG(LogTemp, Warning, TEXT("Room is nullptr")); }
 				}
-				else { UE_LOG(LogTemp, Warning, TEXT("World is nullptr")); }
+				else { if (debuggerOn) UE_LOG(LogTemp, Warning, TEXT("World is nullptr")); }
 
 				
 				//mark the doorways of this cell for the next cells
@@ -222,7 +230,7 @@ void AMazeGenerator::GenerateCell(int32 x, int32 y) {
 		if (s) GenerateCell(x, y - 1);
 		if (w) GenerateCell(x + 1, y);
 	}
-	else UE_LOG(LogTemp, Warning, TEXT("Cell generation failed"));
+	else if (debuggerOn) UE_LOG(LogTemp, Warning, TEXT("Cell generation failed"));
 	
 
 }
